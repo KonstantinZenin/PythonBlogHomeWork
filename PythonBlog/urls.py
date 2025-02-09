@@ -1,22 +1,18 @@
-"""
-URL configuration for PythonBlog project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
+from python_blog.views import catalog_posts, post_detail, catalog_categories, category_detail, catalog_tags, tag_detail
+
+app_name = "blog"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("", catalog_posts, name="posts"),
+    # категории
+    path("categories/", catalog_categories, name="categories"),
+    path("categories/<slug:category_slag>/", category_detail, name="category_detail"),
+    # теги
+    path("tags/", catalog_tags, name="tags"),
+    path("tags/<slug:tag_slag>/", tag_detail, name="tag_detail"),
+    # посты
+    path("<slug:post_slug>/", post_detail, name="post_detail"),
 ]
